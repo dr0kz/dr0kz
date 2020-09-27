@@ -5,9 +5,9 @@
 
 int main()
 {
-    int i=0,brojac=0,count=0,flag=0,flag2=0,u=0,m=0,znamence=0,zname=0,z=0;
-    char zbor[50];
-    char c,bukva;
+    int i=0,counter=0,count=0,flag=0,flag2=0,u=0,m=0,flag3=0,flag4=0,z=0;
+    char word[50];
+    char c,letter;
     printf("Player 1\n");
     printf("Enter a word: ");
     while((c=getch())!=13)
@@ -25,27 +25,27 @@ int main()
         else
         {
             printf("*");
-            zbor[i]=c;
+            word[i]=c;
             i++;
         }
     }
-    zbor[i]='\0';
+    word[i]='\0';
     char niza[50];
-    char upotrebeni[50];
+    char used[50];
     for(int j=0;j<i;j++)
     {
         niza[j]='_';
     }
     niza[i]='\0';
     system("cls");
-    while(brojac!=4)
+    while(counter!=4)
     {
         printf("Player 2\n");
-        if(brojac==0) printf("LIVES * * * *\n");
-        else if(brojac==1) printf("LIVES * * *\n");
-        else if(brojac==2) printf("LIVES * *\n");
-        else if(brojac==3) printf("LIVES *\n");
-        if(count<i-2 && zname==0)
+        if(counter==0) printf("LIVES * * * *\n");
+        else if(counter==1) printf("LIVES * * *\n");
+        else if(counter==2) printf("LIVES * *\n");
+        else if(counter==3) printf("LIVES *\n");
+        if(count<i-2 && flag4==0)
         {
             printf("You have 1 HINT ( Press + )\n");
         }
@@ -54,7 +54,7 @@ int main()
         {
             for(int j=0;j<u;j++)
             {
-                if(upotrebeni[j]!='+') printf("%c  ",upotrebeni[j]);
+                if(used[j]!='+') printf("%c  ",used[j]);
             }
         }
         printf("\n");
@@ -73,8 +73,8 @@ int main()
             break;
         }
         printf("\nEnter a letter: ");
-        scanf(" %c", &bukva);
-        if(bukva=='+' && count<i-2 && zname==0)
+        scanf(" %c", &letter);
+        if(letter=='+' && count<i-2 && flag4==0)
         {
             while(z!=1)
             {
@@ -82,32 +82,32 @@ int main()
                 int randomce=rand()%i;
                 if(niza[randomce]=='_')
                 {
-                    niza[randomce]=zbor[randomce];
-                    bukva=zbor[randomce];
+                    niza[randomce]=word[randomce];
+                    letter=word[randomce];
                     z=1;
                 }
-                zname=1;
+                flag4=1;
             }
         }
         flag2=0;
-        znamence=0;
+        flag3=0;
         for(int j=0;j<u;j++)
         {
-            if(tolower(bukva)==tolower(upotrebeni[j])) znamence=1;
+            if(tolower(letter)==tolower(used[j])) flag3=1;
         }
-        if(znamence==0)
+        if(flag3==0)
         {
-            upotrebeni[u]=tolower(bukva);
+            used[u]=tolower(letter);
             u++;
             for(int k=0;k<i;k++)
             {
-                if(tolower(bukva)==tolower(zbor[k]))
+                if(tolower(letter)==tolower(word[k]))
                 {
                     flag2=1;
-                    niza[k]=tolower(bukva);
+                    niza[k]=tolower(letter);
                     count++;
                 }
-                if(k==i-1 && flag2==0 && bukva!='+') brojac++;
+                if(k==i-1 && flag2==0 && letter!='+') counter++;
             }
         }
         system("cls");
@@ -116,7 +116,7 @@ int main()
     {
         printf("\nThe word is guessed!\n");
     }
-    else printf("The word was: %s\n",zbor);
+    else printf("The word was: %s\n",word);
     system("PAUSE");
     return 0;
 }
